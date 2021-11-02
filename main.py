@@ -5,8 +5,8 @@ def main():
     camera = PiCamera()
 
     camera.start_preview()
-    camera.annotate_text = ""
     camera.start_recording('/home/pi/Desktop/video.h264')
+    camera.annotate_text = "Hello ther!"
     sleep(5)
     camera.stop_recording()
     camera.stop_preview()
