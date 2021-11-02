@@ -5,8 +5,9 @@ def main():
     camera = PiCamera()
 
     camera.start_preview()
+    camera.start_recording('/home/pi/Desktop/video.h264')
     sleep(5)
-    camera.capture('/home/pi/Desktop/image.jpg')
+    camera.stop_recording()
     camera.stop_preview()
 
 # Press the green button in the gutter to run the script.
