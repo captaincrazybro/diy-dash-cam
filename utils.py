@@ -9,7 +9,7 @@ def display_details(time, velocity, temperature):
 
 
 def convert_temp(celsius):
-    return celsius * 1.8 + 32
+    return round(celsius * 1.8 + 32)
 
 
 def get_cpu_temperature():
@@ -21,8 +21,10 @@ def get_acceleration():
     sense = SenseHat()
 
     raw = sense.get_accelerometer_raw()
-    print(raw)
-    return mag(raw['x'], raw['y'], raw['z']) * 21.94
+    acc = mag(raw['x'], raw['y'], raw['z']) * 21.94
+    print(acc)
+    print(acc/21.94)
+    return acc
 
 
 def mag(x, y, z):
