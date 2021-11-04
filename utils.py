@@ -22,6 +22,7 @@ def get_acceleration():
 
     raw = sense.get_accelerometer_raw()
     acc = mag(raw['x'], raw['y'], raw['z']) * 21.94
+    print(raw['x'])
     print(acc)
     print(acc/21.94)
     return acc
