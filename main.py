@@ -12,6 +12,7 @@ def main():
     sense = SenseHat()
 
     overheating = False
+    recording = True
     video_count = 1
     global_time = 0
     t = 0
@@ -32,6 +33,23 @@ def main():
             else:
                 camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
                 overheating = False
+
+        # Handle button press event
+        joystick_events = sense.stick.get_events()
+        if len(joystick_events) > 0:
+            recording = not recording
+
+            if not recording:
+                camera.stop_recording()
+
+                video_count += 1
+                camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
+                t = 0
+                continue
+
+        # Check if camera is supposed to be recording
+        if not recording:
+            continue
 
         # Update display text (showing time, speed and temperature)
         camera.annotate_text = display_details(global_time, round(get_velocity(), 0), convert_temp(sense.get_temperature()))
