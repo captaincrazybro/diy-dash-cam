@@ -3,6 +3,7 @@ from time import sleep
 from sense_hat import SenseHat
 
 from utils import *
+from modules import *
 
 recording_duration = 10
 max_temp = 80
@@ -18,7 +19,7 @@ def main():
     t = 0
 
     camera.start_preview()
-    camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
+    camera.start_recording(f'{recordings_home}/recording-{video_count}.h264')
 
     while True:
 
@@ -26,12 +27,16 @@ def main():
         if overheating:
             if sense.get_cpu_temperature() >= max_temp:
                 if not overheating:
+                    sense.clear()
                     camera.stop_recording()
-                    video_count += 1
                     overheating = True
                 continue
             else:
+                space_manager()
+
+                video_count += 1
                 camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
+                t = 0
                 overheating = False
 
         # Handle button press event
@@ -41,11 +46,16 @@ def main():
 
             if not recording:
                 camera.stop_recording()
-
+                space_manager()
+                continue
+            else:
                 video_count += 1
                 camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
                 t = 0
-                continue
+
+        # LED Grid recording blink
+        recording_icon(sense, recording)
+
 
         # Check if camera is supposed to be recording
         if not recording:
@@ -57,15 +67,17 @@ def main():
         # Check if recording duration met
         if t == recording_duration:
             camera.stop_recording()
+            # TODO: decide wether to have this be sync or async
+            space_manager()
 
             video_count += 1
-            camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
+            camera.start_recording(f'{recordings_home}/recording-{video_count}.h264')
             t = 0
+            space_manager()
 
         sleep(1)
         global_time += 1
         t += 1
-
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
