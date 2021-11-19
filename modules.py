@@ -27,13 +27,13 @@ def show_storage_usage(sense):
     perc_used = used / total
 
     if perc_used >= 0.25:
-        status_color = (0, 255, 0)
+        status_color = (255, 0, 0)
     elif perc_used >= 0.50:
         status_color = (255, 255, 0)
     elif perc_used >= 0.75:
         status_color = (255, 165, 0)
     else:
-        status_color = (255, 0, 0)
+        status_color = (0, 255, 0)
 
     div = 1.0 / 6.0
     test_num = perc_used / div
@@ -42,6 +42,6 @@ def show_storage_usage(sense):
 
     while i < status_limit:
         if i < 7:
-            sense.set_pixel(6, 1 + i, status_color)
+            sense.set_pixel(1 + i, 6, status_color)
 
         i += 1
