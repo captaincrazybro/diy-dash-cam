@@ -16,7 +16,7 @@ def main():
     camera = PiCamera()
     sense = SenseHat()
 
-    modules.init_sense(sense)
+    # modules.init_sense(sense)
 
     overheating = False
     recording = True
