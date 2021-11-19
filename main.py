@@ -62,7 +62,7 @@ def main():
             continue
 
         # Update display text (showing time, speed and temperature)
-        camera.annotate_text = display_details(global_time, round(get_velocity(), 0), convert_temp(sense.get_temperature()))
+        camera.annotate_text = display_details(global_time, 13, convert_temp(sense.get_temperature()))
 
         # Check if recording duration met
         if t == recording_duration:
