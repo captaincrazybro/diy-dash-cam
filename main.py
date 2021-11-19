@@ -49,6 +49,7 @@ def main():
 
         # Handle button press event
         joystick_events = sense.stick.get_events()
+        print(joystick_events)
         if len(joystick_events) > 0:
             if recording:
                 recording = False
