@@ -1,16 +1,22 @@
+import this
+
 from picamera import PiCamera
 from time import sleep
 from sense_hat import SenseHat
 
+import modules
 from utils import *
 from modules import *
 
 recording_duration = 10
 max_temp = 80
 
+
 def main():
     camera = PiCamera()
     sense = SenseHat()
+
+    modules.init_sense(sense)
 
     overheating = False
     recording = True
@@ -25,7 +31,7 @@ def main():
 
         # Checks if raspberry pi is overheating
         if overheating:
-            if sense.get_cpu_temperature() >= max_temp:
+            if get_cpu_temperature() >= max_temp:
                 if not overheating:
                     sense.clear()
                     camera.stop_recording()
@@ -42,13 +48,12 @@ def main():
         # Handle button press event
         joystick_events = sense.stick.get_events()
         if len(joystick_events) > 0:
-            recording = not recording
-
-            if not recording:
+            if recording:
+                recording = False
                 camera.stop_recording()
                 space_manager()
-                continue
             else:
+                recording = True
                 video_count += 1
                 camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
                 t = 0

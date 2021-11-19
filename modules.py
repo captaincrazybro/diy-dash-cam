@@ -1,6 +1,15 @@
 import shutil
+from multiprocessing import Process
 
 on_off = False
+toggle_recording = False
+clicks = 0
+# sense = None
+reading_button = False
+
+# def init_sense(prov_sense):
+#     global sense
+#     sense = prov_sense
 
 
 def recording_icon(sense, is_recording):
@@ -45,3 +54,18 @@ def show_storage_usage(sense):
             sense.set_pixel(1 + i, 6, status_color)
 
         i += 1
+
+#
+# def handle_button():
+#     global clicks, reading_button
+#     events = sense.stick.get_events()
+#
+#     if len(events) == 0:
+#         return
+#
+#     clicks = len(events)
+#     reading_button = True
+#
+#     Process(target=wait_for_clicks).start()
+#
+# def wait_for_clicks():
