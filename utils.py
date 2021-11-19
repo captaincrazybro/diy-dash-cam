@@ -6,7 +6,7 @@ import shutil
 
 velocity = 0
 
-recordings_home = "~/Desktop/Recordings"
+recordings_home = "/home/pi/Desktop/Recordings"
 
 
 def display_details(time, velocity, temperature):
