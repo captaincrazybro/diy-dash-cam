@@ -46,11 +46,7 @@ def get_velocity():
     return velocity
 
 
-async def space_manager():
-    check_space()
-
-
-def check_space():
+def space_manager():
     total, used, free = shutil.disk_usage("/")
     perc_used = used / total
 
@@ -61,7 +57,7 @@ def check_space():
         f = files[0]
         os.remove(f)
 
-        check_space()
+        space_manager()
 
 
 def file_sort(f: str):

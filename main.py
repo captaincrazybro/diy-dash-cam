@@ -73,7 +73,6 @@ def main():
             video_count += 1
             camera.start_recording(f'{recordings_home}/recording-{video_count}.h264')
             t = 0
-            space_manager()
 
         sleep(1)
         global_time += 1

@@ -37,11 +37,11 @@ def show_storage_usage(sense):
 
     div = 1.0 / 6.0
     test_num = perc_used / div
-    status_limit = int(f'{test_num}'.split(".")[0])
+    status_limit = 1 + int(f'{test_num}'.split(".")[0])
     i = 0
 
     while i < status_limit:
-        if i < 6:
+        if i < 7:
             sense.set_pixel(6, 1 + i, status_color)
 
         i += 1
