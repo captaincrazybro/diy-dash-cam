@@ -51,15 +51,17 @@ def main():
         joystick_events = sense.stick.get_events()
         print(joystick_events)
         if len(joystick_events) > 0:
-            if recording:
-                recording = False
-                camera.stop_recording()
-                space_manager()
-            else:
-                recording = True
-                video_count += 1
-                camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
-                t = 0
+
+            if joystick_events[0].action == "pressed":
+                if recording:
+                    recording = False
+                    camera.stop_recording()
+                    space_manager()
+                else:
+                    recording = True
+                    video_count += 1
+                    camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
+                    t = 0
 
         # LED Grid recording blink
         recording_icon(sense, recording)
