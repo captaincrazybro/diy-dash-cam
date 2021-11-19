@@ -11,7 +11,6 @@ reading_button = False
 #     global sense
 #     sense = prov_sense
 
-
 def recording_icon(sense, is_recording):
     global on_off
 

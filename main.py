@@ -24,7 +24,6 @@ def main():
     global_time = 0
     t = 0
 
-    camera.start_preview()
     camera.start_recording(f'{recordings_home}/recording-{video_count}.h264')
 
     while True:
