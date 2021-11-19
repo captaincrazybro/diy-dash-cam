@@ -55,7 +55,7 @@ def main():
 
         # LED Grid recording blink
         recording_icon(sense, recording)
-
+        show_storage_usage(sense)
 
         # Check if camera is supposed to be recording
         if not recording:
