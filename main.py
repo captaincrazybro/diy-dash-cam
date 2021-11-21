@@ -32,14 +32,19 @@ def main():
         sleep(1)
 
         # Checks if raspberry pi is overheating
-        if get_cpu_temperature() >= max_temp:
+        if get_cpu_temperature() >= 20:
             if not overheating:
                 sense.clear()
                 camera.stop_recording()
                 overheating = True
                 video_count = add_count(video_count)
+            utils.show_temp_warning(sense)
             continue
         elif overheating:
+            utils.show_check(sense)
+            sleep(1)
+            sense.clear()
+
             space_manager()
 
             camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')

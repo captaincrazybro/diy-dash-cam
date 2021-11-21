@@ -6,6 +6,7 @@ import shutil
 
 velocity = 0
 recordings_home = "/home/pi/Desktop/Recordings"
+showing_overheat = False
 
 
 def display_details(time, velocity, temperature):
@@ -49,6 +50,7 @@ def space_manager():
     total, used, free = shutil.disk_usage("/")
     perc_used = used / total
 
+    # TODO: display something when this condition is met
     if perc_used >= 0.90:
         files = os.listdir(recordings_home)
         if len(files) == 0:
@@ -79,3 +81,43 @@ def add_count(curr_count):
     file.write(f'{curr_count}')
     file.close()
     return curr_count
+
+def show_temp_warning(sense):
+    global showing_overheat
+
+    if not showing_overheat:
+        sense.clear()
+        showing_overheat = True
+    else:
+        R = (255, 0, 0)
+        O = (0, 0, 0)
+
+        warning = [
+            O, O, O, O, R, O, O, O, O,
+            O, O, O, R, O, R, O, O, O,
+            O, O, O, R, O, R, O, O, O,
+            O, O, R, O, R, O, R, O, O,
+            O, O, R, O, R, O, R, O, O,
+            O, R, O, R, O, R, O, R, O,
+            O, R, O, O, R, O, O, R, O,
+            R, O, O, O, O, O, O, O, R,
+            R, R, R, R, R, R, R, R, R,
+        ]
+        sense.set_pixels(warning)
+
+def show_check(sense):
+    O = (0, 0, 0)
+    G = (0, 255, 0)
+
+    check_mark = [
+        O, O, O, O, O, O, O, O, O,
+        O, G, O, O, O, O, O, O, O,
+        O, G, O, O, O, O, O, O, O,
+        O, O, G, O, O, O, O, O, O,
+        O, O, G, O, O, O, O, O, O,
+        O, O, O, G, O, O, G, O, O,
+        O, O, O, G, O, G, O, O, O,
+        O, O, O, O, G, O, O, O, O,
+        O, O, O, O, O, O, O, O, O,
+    ]
+    sense.set_pixels(check_mark)
