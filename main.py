@@ -10,7 +10,7 @@ from utils import *
 from modules import *
 
 recording_duration = 10
-max_temp = 20
+max_temp = 80
 
 
 def main():
@@ -33,9 +33,6 @@ def main():
 
         sleep(1)
 
-        if i == 5:
-            max_temp = 80
-
         # Checks if raspberry pi is overheating
         if get_cpu_temperature() >= max_temp:
             if not overheating:
@@ -44,7 +41,6 @@ def main():
                 overheating = True
                 video_count = add_count(video_count)
             utils.show_temp_warning(sense)
-            i += 1
             continue
         elif overheating:
             utils.show_check(sense)
