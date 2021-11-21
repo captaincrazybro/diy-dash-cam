@@ -103,6 +103,7 @@ def show_temp_warning(sense):
             R, R, R, R, R, R, R, R,
         ]
         sense.set_pixels(warning)
+        showing_overheat = False
 
 
 def show_check(sense):
