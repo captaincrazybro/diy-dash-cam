@@ -57,7 +57,7 @@ def space_manager():
         files.sort(key=file_sort)
 
         f = files[0]
-        os.remove(f)
+        os.remove(f'{recordings_home}/{f}')
 
         space_manager()
 
