@@ -49,7 +49,7 @@ def space_manager():
     total, used, free = shutil.disk_usage("/")
     perc_used = used / total
 
-    if perc_used >= 0.01:
+    if perc_used >= 0.90:
         files = os.listdir(recordings_home)
         if len(files) == 0:
             return
