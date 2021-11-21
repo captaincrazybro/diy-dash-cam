@@ -38,11 +38,11 @@ def main():
                     sense.clear()
                     camera.stop_recording()
                     overheating = True
+                    video_count = add_count(video_count)
                 continue
             else:
                 space_manager()
 
-                video_count = add_count(video_count)
                 camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
                 t = 0
                 overheating = False
@@ -52,10 +52,10 @@ def main():
             if recording:
                 recording = False
                 camera.stop_recording()
+                video_count = add_count(video_count)
                 space_manager()
             else:
                 recording = True
-                video_count = add_count(video_count)
                 camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
                 t = 0
         # joystick_events = sense.stick.get_events()
