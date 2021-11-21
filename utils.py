@@ -18,7 +18,7 @@ def convert_temp(celsius):
 
 def get_cpu_temperature():
     reader = open("/sys/class/thermal/thermal_zone0/temp")
-    return int(reader.read())
+    return float(reader.read()) / 1000
 
 
 def get_acceleration():
