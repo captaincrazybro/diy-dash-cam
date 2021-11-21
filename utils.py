@@ -5,7 +5,6 @@ from math import *
 import shutil
 
 velocity = 0
-
 recordings_home = "/home/pi/Desktop/Recordings"
 
 
@@ -69,6 +68,7 @@ def get_count():
     count = int(file.read())
     file.close()
     return count
+
 
 def add_count(curr_count):
     file = open("count", "w")

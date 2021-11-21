@@ -32,20 +32,19 @@ def main():
         sleep(1)
 
         # Checks if raspberry pi is overheating
-        if overheating:
-            if get_cpu_temperature() >= max_temp:
-                if not overheating:
-                    sense.clear()
-                    camera.stop_recording()
-                    overheating = True
-                    video_count = add_count(video_count)
-                continue
-            else:
-                space_manager()
+        if get_cpu_temperature() >= max_temp:
+            if not overheating:
+                sense.clear()
+                camera.stop_recording()
+                overheating = True
+                video_count = add_count(video_count)
+            continue
+        elif overheating:
+            space_manager()
 
-                camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
-                t = 0
-                overheating = False
+            camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
+            t = 0
+            overheating = False
 
         # Handle button press event
         if handle_button(sense):
@@ -58,20 +57,6 @@ def main():
                 recording = True
                 camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
                 t = 0
-        # joystick_events = sense.stick.get_events()
-        # print(joystick_events)
-        # if len(joystick_events) > 0:
-        #
-        #     if joystick_events[0].action == "pressed":
-        #         if recording:
-        #             recording = False
-        #             camera.stop_recording()
-        #             space_manager()
-        #         else:
-        #             recording = True
-        #             video_count += 1
-        #             camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
-        #             t = 0
 
         # LED Grid recording blink
         recording_icon(sense, recording)
@@ -87,7 +72,6 @@ def main():
         # Check if recording duration met
         if t == recording_duration:
             camera.stop_recording()
-            # TODO: decide wether to have this be sync or async
             space_manager()
 
             video_count = add_count(video_count)
