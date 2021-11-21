@@ -50,6 +50,7 @@ def main():
             utils.show_check(sense)
             sleep(1)
             sense.clear()
+            sleep(1)
 
             space_manager()
 
