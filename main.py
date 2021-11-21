@@ -10,10 +10,11 @@ from utils import *
 from modules import *
 
 recording_duration = 10
-max_temp = 80
+max_temp = 20
 
 
 def main():
+    global max_temp
     camera = PiCamera()
     sense = SenseHat()
 
@@ -24,6 +25,7 @@ def main():
     video_count = utils.get_count()
     global_time = 0
     t = 0
+    i = 0
 
     camera.start_recording(f'{recordings_home}/recording-{video_count}.h264')
 
@@ -31,8 +33,12 @@ def main():
 
         sleep(1)
 
+        print(i)
+        if i == 5:
+            max_temp = 80
+
         # Checks if raspberry pi is overheating
-        if get_cpu_temperature() >= 20:
+        if get_cpu_temperature() >= max_temp:
             if not overheating:
                 sense.clear()
                 camera.stop_recording()
@@ -85,6 +91,7 @@ def main():
 
         global_time += 1
         t += 1
+        i += 1
 
 
 # Press the green button in the gutter to run the script.
