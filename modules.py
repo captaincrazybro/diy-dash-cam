@@ -4,12 +4,8 @@ from multiprocessing import Process
 on_off = False
 toggle_recording = False
 clicks = 0
-# sense = None
 reading_button = False
-
-# def init_sense(prov_sense):
-#     global sense
-#     sense = prov_sense
+total_holds = 0
 
 def recording_icon(sense, is_recording):
     global on_off
@@ -54,17 +50,71 @@ def show_storage_usage(sense):
 
         i += 1
 
-#
-# def handle_button():
-#     global clicks, reading_button
-#     events = sense.stick.get_events()
-#
-#     if len(events) == 0:
-#         return
-#
-#     clicks = len(events)
-#     reading_button = True
-#
-#     Process(target=wait_for_clicks).start()
-#
-# def wait_for_clicks():
+
+def handle_button(sense):
+    global reading_button, clicks, total_holds
+    events = sense.stick.get_events()
+    if len(events) == 0:
+        if reading_button is True:
+            reading_button = False
+            total_holds = 0
+            if clicks == 1:
+                clicks = 0
+                return True
+            elif clicks == 2:
+                clicks = 0
+                print("DOUBLE CLICK")
+                return False
+            clicks = 0
+        else:
+            return False
+
+    reading_button = True
+
+    presses = get_presses(events)
+    holds = get_holds(events)
+
+    clicks += presses
+    total_holds += holds
+
+    if clicks >= 3:
+        reading_button = False
+        clicks = 0
+        print("TRIPLE CLICK")
+    elif total_holds >= 3:
+        reading_button = False
+        clicks = 0
+        total_holds = 0
+        print("HOLD CLICK")
+
+    return False
+
+
+def get_presses(events):
+    presses = 0
+
+    for event in events:
+        if event.action is "pressed":
+            presses += 1
+
+    return presses
+
+
+def get_releases(events):
+    releases = 0
+
+    for event in events:
+        if event.action is "released":
+            releases += 1
+
+    return releases
+
+
+def get_holds(events):
+    holds = 0
+
+    for event in events:
+        if event.action is "held":
+            holds += 1
+
+    return holds

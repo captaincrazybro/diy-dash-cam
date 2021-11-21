@@ -47,20 +47,30 @@ def main():
                 overheating = False
 
         # Handle button press event
-        joystick_events = sense.stick.get_events()
-        print(joystick_events)
-        if len(joystick_events) > 0:
-
-            if joystick_events[0].action == "pressed":
-                if recording:
-                    recording = False
-                    camera.stop_recording()
-                    space_manager()
-                else:
-                    recording = True
-                    video_count += 1
-                    camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
-                    t = 0
+        if handle_button(sense):
+            if recording:
+                recording = False
+                camera.stop_recording()
+                space_manager()
+            else:
+                recording = True
+                video_count += 1
+                camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
+                t = 0
+        # joystick_events = sense.stick.get_events()
+        # print(joystick_events)
+        # if len(joystick_events) > 0:
+        #
+        #     if joystick_events[0].action == "pressed":
+        #         if recording:
+        #             recording = False
+        #             camera.stop_recording()
+        #             space_manager()
+        #         else:
+        #             recording = True
+        #             video_count += 1
+        #             camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
+        #             t = 0
 
         # LED Grid recording blink
         recording_icon(sense, recording)
