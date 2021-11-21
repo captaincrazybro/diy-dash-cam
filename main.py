@@ -5,6 +5,7 @@ from time import sleep
 from sense_hat import SenseHat
 
 import modules
+import utils
 from utils import *
 from modules import *
 
@@ -20,7 +21,7 @@ def main():
 
     overheating = False
     recording = True
-    video_count = 1
+    video_count = utils.get_count()
     global_time = 0
     t = 0
 
@@ -41,7 +42,7 @@ def main():
             else:
                 space_manager()
 
-                video_count += 1
+                video_count = add_count(video_count)
                 camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
                 t = 0
                 overheating = False
@@ -54,7 +55,7 @@ def main():
                 space_manager()
             else:
                 recording = True
-                video_count += 1
+                video_count = add_count(video_count)
                 camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
                 t = 0
         # joystick_events = sense.stick.get_events()
@@ -89,7 +90,7 @@ def main():
             # TODO: decide wether to have this be sync or async
             space_manager()
 
-            video_count += 1
+            video_count = add_count(video_count)
             camera.start_recording(f'{recordings_home}/recording-{video_count}.h264')
             t = 0
 

@@ -62,3 +62,17 @@ def space_manager():
 
 def file_sort(f: str):
     return int(f.split(".")[0].split("-")[1])
+
+
+def get_count():
+    file = open("count", "r")
+    count = int(file.read())
+    file.close()
+    return count
+
+def add_count(curr_count):
+    file = open("count", "w")
+    curr_count += 1
+    file.write(f'{curr_count}')
+    file.close()
+    return curr_count
