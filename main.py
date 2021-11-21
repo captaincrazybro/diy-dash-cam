@@ -33,7 +33,6 @@ def main():
 
         sleep(1)
 
-        print(i)
         if i == 5:
             max_temp = 80
 
@@ -45,6 +44,7 @@ def main():
                 overheating = True
                 video_count = add_count(video_count)
             utils.show_temp_warning(sense)
+            i += 1
             continue
         elif overheating:
             utils.show_check(sense)
@@ -91,7 +91,6 @@ def main():
 
         global_time += 1
         t += 1
-        i += 1
 
 
 # Press the green button in the gutter to run the script.
