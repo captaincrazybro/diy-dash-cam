@@ -26,7 +26,7 @@ def main():
     global_time = 1
     t = 1
 
-    camera.annotate_text = display_details(global_time, 13, convert_temp(sense.get_temperature()))
+    # camera.annotate_text = display_details(global_time, 13, convert_temp(sense.get_temperature()))
     camera.start_recording(f'{recordings_home}/recording-{video_count}.h264')
 
     while True:
@@ -78,7 +78,7 @@ def main():
         #     t = 0
         #     sleep(1)
 
-        print(recording, global_time)
+        # print(recording, global_time)
 
         # LED Grid recording blink
         # recording_icon(sense, recording)
@@ -98,7 +98,7 @@ def main():
             t = 0
 
         # Update display text (showing time, speed and temperature)
-        camera.annotate_text = display_details(global_time, 13, convert_temp(sense.get_temperature()))
+        # camera.annotate_text = display_details(global_time, 13, convert_temp(sense.get_temperature()))
 
         global_time += 1
         t += 1
