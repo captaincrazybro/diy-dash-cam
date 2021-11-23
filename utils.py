@@ -180,6 +180,7 @@ def pop_front(array, pops):
 def convert_file(file):
     mp4_file = file.split(".")[0] + ".mp4"
 
+    print(file, mp4_file)
     command = "MP4Box -add " + file + " " + mp4_file
     call([command], shell=True)
 
