@@ -206,7 +206,11 @@ def get_recordings_dir(old_dir: bool = False):
     check = not use_drive if old_dir else use_drive
 
     if check:
-        return f'/media/pi/{get_drive_name()}/Recordings'
+        path = f'/media/pi/{get_drive_name()}/Recordings'
+        if not os.path.isdir(path):
+            os.mkdir(path, 0o666)
+
+        return path
     else:
         return recordings_home
 
