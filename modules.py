@@ -88,6 +88,8 @@ def handle_button(sense):
         reading_button = 0
         clicks = 0
         total_holds = 0
+        if not utils.drive_connected():
+            return 0
         utils.use_drive = not utils.use_drive
         utils.show_storage_switch(sense)
 
