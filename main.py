@@ -76,6 +76,7 @@ def main():
             space_manager()
             camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
             t = 0
+            sleep(1)
 
         print(handled_button, recording, global_time)
 
