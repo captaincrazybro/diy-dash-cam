@@ -1,11 +1,11 @@
+import os.path
 import this
 
 from picamera import PiCamera
 from time import sleep
 from sense_hat import SenseHat
+import yaml
 
-import modules
-import utils
 from utils import *
 from modules import *
 
@@ -15,11 +15,11 @@ max_temp = 80
 
 def main():
     global max_temp
+    import_config()
+
     camera = PiCamera()
     sense = SenseHat()
     sense.clear()
-
-    # modules.init_sense(sense)
 
     overheating = False
     recording = True
@@ -87,7 +87,7 @@ def main():
                 camera.start_recording(f'{get_recordings_dir()}/recording-{video_count}.h264')
                 t = 0
             else:
-                utils.transfer_files(transfer_all= True if handled_button is 3 else False)
+                utils.transfer_files(transfer_all=True if handled_button is 3 else False)
 
             sense.clear()
             sleep(1)
@@ -130,6 +130,26 @@ def main():
         camera.annotate_text = display_details(global_time, 13, convert_temp(sense.get_temperature()))
 
         t += 1
+
+
+def import_config():
+    global max_temp, recording_duration
+    if not os.path.isfile("config.yml"):
+        new_file = open("config.yml", "w+")
+        new_file.write("recording_duration: 900 #s\n" +
+                       "max_temperature: 80 #C\n" +
+                       "max_file_usage: 0.90 #* 100 %\n" +
+                       "recordings_directory: \"/home/pi/Desktop/Recordings\"\n")
+        new_file.close()
+
+    config_file = open("config.yml", "r")
+    config = yaml.safe_load(config_file)
+    config_file.close()
+
+    max_temp = config["max_temperature"]
+    recording_duration = config["recording_duration"]
+    utils.recordings_home = config["recordings_directory"]
+    utils.max_file_usage = config["max_file_usage"]
 
 
 # Press the green button in the gutter to run the script.

@@ -1,0 +1,4 @@
+recording_duration: 10 #s
+max_temperature: 80 #C
+max_file_usage: 0.90 #* 100 %
+recordings_directory: "/home/pi/Desktop/Recordings"

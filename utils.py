@@ -10,6 +10,7 @@ velocity = 0
 recordings_home = "/home/pi/Desktop/Recordings"
 showing_overheat = False
 use_drive = False
+max_file_usage = 0.90
 
 
 def display_details(time, velocity, temperature):
@@ -57,7 +58,7 @@ def space_manager():
     perc_used = used / total
 
     # TODO: display something when this condition is met
-    if perc_used >= 0.90:
+    if perc_used >= max_file_usage:
         files = os.listdir(recordings_home)
         if len(files) == 0:
             return
