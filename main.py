@@ -39,8 +39,11 @@ def main():
             if not overheating:
                 sense.clear()
                 camera.stop_recording()
-                overheating = True
+
+                convert_file(f'{recordings_home}/recording-{video_count}.h264')
                 video_count = add_count(video_count)
+
+                overheating = True
             utils.show_temp_warning(sense)
             continue
         elif overheating:
@@ -61,6 +64,8 @@ def main():
             if recording:
                 recording = False
                 camera.stop_recording()
+                convert_file(f'{recordings_home}/recording-{video_count}.h264')
+
                 video_count = add_count(video_count)
                 space_manager()
             else:
@@ -70,6 +75,7 @@ def main():
         if handled_button > 1:
             recording_icon(sense, False)
             camera.stop_recording()
+            convert_file(f'{recordings_home}/recording-{video_count}.h264')
             video_count = add_count(video_count)
 
             utils.transfer_files(transfer_all=True if handled_button is 3 else False)
