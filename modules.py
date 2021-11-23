@@ -65,7 +65,6 @@ def handle_button(sense):
                 return 1
             elif clicks == 2:
                 clicks = 0
-                utils.transfer_files(transfer_all=False)
                 return 2
             clicks = 0
             return 0

@@ -145,7 +145,6 @@ def transfer_files(transfer_all: bool):
         os.mkdir(drive_path, 0o666)
 
     files = os.listdir(recordings_home)
-    print("files", files)
 
     if not transfer_all:
         files.sort(key=file_sort, reverse=True)
@@ -153,13 +152,10 @@ def transfer_files(transfer_all: bool):
     else:
         new_files = files
 
-    print("new_files", new_files)
-
     for file in new_files:
         new_file = f'{drive_path}/{file}'
         if not os.path.isfile(new_file):
             shutil.copyfile(f'{recordings_home}/{file}', new_file)
-            print("new_file", new_file)
 
 
 def pop_front(array, pops):

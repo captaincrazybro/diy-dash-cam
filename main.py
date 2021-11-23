@@ -79,7 +79,6 @@ def main():
                 convert_file(f'{recordings_home}/recording-{video_count}.h264')
                 video_count = add_count(video_count)
 
-                print(os.listdir(recordings_home))
                 utils.transfer_files(transfer_all=True if handled_button is 3 else False)
 
                 space_manager()
