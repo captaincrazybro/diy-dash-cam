@@ -8,6 +8,7 @@ clicks = 0
 reading_button = False
 total_holds = 0
 
+
 def recording_icon(sense, is_recording):
     global on_off
 
@@ -74,6 +75,7 @@ def handle_button(sense):
 
     reading_button = True
 
+    print(events)
     presses = get_presses(events)
     holds = get_holds(events)
 
@@ -99,7 +101,7 @@ def get_presses(events):
     presses = 0
 
     for event in events:
-        if event.action is "pressed":
+        if event.action == "pressed":
             presses += 1
 
     return presses
@@ -109,7 +111,7 @@ def get_releases(events):
     releases = 0
 
     for event in events:
-        if event.action is "released":
+        if event.action == "released":
             releases += 1
 
     return releases
@@ -119,7 +121,7 @@ def get_holds(events):
     holds = 0
 
     for event in events:
-        if event.action is "held":
+        if event.action == "held":
             holds += 1
 
     return holds
