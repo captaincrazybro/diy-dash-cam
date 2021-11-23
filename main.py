@@ -73,6 +73,7 @@ def main():
                 camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
                 t = 0
         if handled_button > 1:
+            show_transferring(sense)
             if recording:
                 recording_icon(sense, False)
                 camera.stop_recording()
@@ -84,10 +85,11 @@ def main():
                 space_manager()
                 camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
                 t = 0
-                sleep(1)
             else:
-                print("THIS CALLED")
                 utils.transfer_files(transfer_all= True if handled_button is 3 else False)
+
+            sense.clear()
+            sleep(1)
 
         # LED Grid recording blink
         recording_icon(sense, recording)

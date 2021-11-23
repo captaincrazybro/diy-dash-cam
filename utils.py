@@ -178,3 +178,23 @@ def convert_file(file):
     call([command], shell=True)
 
     os.remove(file)
+
+
+def show_transferring(sense):
+    sense.clear()
+
+    O = (0, 0, 0)
+    G = (0, 255, 0)
+
+    display = [
+        O, O, O, O, O, O, O, O,
+        O, O, O, O, O, O, O, O,
+        O, O, O, G, O, O, O, O,
+        G, G, G, G, G, O, G, G,
+        G, G, G, G, G, O, G, G,
+        O, O, O, G, O, O, O, O,
+        O, O, O, O, O, O, O, O,
+        O, O, O, O, O, O, O, O,
+    ]
+
+    sense.set_pixels(display)
