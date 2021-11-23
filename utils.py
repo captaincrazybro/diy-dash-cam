@@ -214,8 +214,8 @@ def get_recordings_dir(old_dir: bool = False):
     else:
         return recordings_home
 
+
 def show_storage_switch(sense):
-    sense.clear()
     if use_drive:
         O = (0, 0, 0)
         G = (0, 255, 0)
