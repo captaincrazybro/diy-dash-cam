@@ -23,8 +23,8 @@ def main():
     overheating = False
     recording = True
     video_count = utils.get_count()
-    global_time = 0
-    t = 0
+    global_time = 1
+    t = 1
 
     camera.start_recording(f'{recordings_home}/recording-{video_count}.h264')
 
