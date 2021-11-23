@@ -17,6 +17,7 @@ def main():
     global max_temp
     camera = PiCamera()
     sense = SenseHat()
+    sense.clear()
 
     # modules.init_sense(sense)
 
