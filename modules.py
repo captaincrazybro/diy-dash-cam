@@ -88,7 +88,7 @@ def handle_button(sense):
         reading_button = 0
         clicks = 0
         total_holds = 0
-        print("HOLD CLICK")
+        utils.use_drive = not utils.use_drive
 
     return 0
 

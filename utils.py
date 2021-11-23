@@ -8,6 +8,7 @@ from subprocess import call
 velocity = 0
 recordings_home = "/home/pi/Desktop/Recordings"
 showing_overheat = False
+use_drive = False
 
 
 def display_details(time, velocity, temperature):
