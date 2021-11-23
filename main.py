@@ -78,8 +78,9 @@ def main():
                 camera.stop_recording()
                 convert_file(f'{recordings_home}/recording-{video_count}.h264')
                 video_count = add_count(video_count)
+                sleep(0.5)
 
-                utils.transfer_files(transfer_all= True if handled_button is 3 else False)
+                utils.transfer_files(transfer_all=True if handled_button is 3 else False)
 
                 space_manager()
                 camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
