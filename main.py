@@ -99,15 +99,16 @@ def main():
         if not recording:
             continue
 
-        # Check if recording duration met
-        if t == recording_duration:
+        # Check if recording duration met or switching storage
+        if t == recording_duration or handled_button == -1:
+            # TODO: make these into a function: start_recording() and stop_recording()
             camera.stop_recording()
-            convert_file(f'{recordings_home}/recording-{video_count}.h264')
+            convert_file(f'{get_recordings_dir(old_dir=True) if handled_button == -1 else get_recordings_dir()}/recording-{video_count}.h264')
 
             space_manager()
 
             video_count = add_count(video_count)
-            camera.start_recording(f'{recordings_home}/recording-{video_count}.h264')
+            camera.start_recording(f'{get_recordings_dir()}/recording-{video_count}.h264')
             t = 0
 
         # Update display text (showing time, speed and temperature)

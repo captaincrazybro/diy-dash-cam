@@ -94,15 +94,16 @@ def show_temp_warning(sense):
     else:
         R = (255, 0, 0)
         O = (0, 0, 0)
+        OR = (255, 165, 0)
 
         warning = [
             O, O, O, R, R, O, O, O,
-            O, O, R, O, O, R, O, O,
-            O, O, R, O, O, R, O, O,
-            O, R, O, R, R, O, R, O,
-            O, R, O, R, R, O, R, O,
-            R, O, O, R, R, O, O, R,
-            R, O, O, O, O, O, O, R,
+            O, O, R, OR, OR, R, O, O,
+            O, O, R, OR, OR, R, O, O,
+            O, R, O, OR, OR, O, R, O,
+            O, R, OR, O, O, OR, R, O,
+            R, O, OR, O, O, OR, O, R,
+            R, O, O, OR, OR, O, O, R,
             R, R, R, R, R, R, R, R,
         ]
         sense.set_pixels(warning)
@@ -199,3 +200,50 @@ def show_transferring(sense):
     ]
 
     sense.set_pixels(display)
+
+
+def get_recordings_dir(old_dir: bool = False):
+    check = not use_drive if old_dir else use_drive
+
+    if check:
+        return f'/media/pi/{get_drive_name()}/Recordings'
+    else:
+        return recordings_home
+
+def show_storage_switch(sense):
+    sense.clear()
+    if use_drive:
+        O = (0, 0, 0)
+        G = (0, 255, 0)
+        W = (255, 255, 255)
+
+        drive_display = [
+            O, O, W, W, W, W, O, O,
+            O, O, W, O, O, W, O, O,
+            O, O, W, W, W, W, O, O,
+            O, G, G, G, G, G, G, O,
+            O, G, G, W, G, G, G, O,
+            O, G, G, W, W, G, G, O,
+            O, G, G, G, W, G, G, O,
+            O, G, G, G, G, G, G, O,
+        ]
+
+        sense.set_pixels(drive_display)
+
+    else:
+        B = (0, 0, 0)
+        G = (0, 255, 0)
+        O = (255, 165, 0)
+
+        dashpi_display = [
+            B, B, B, B, B, B, B, B,
+            B, B, B, B, B, B, B, B,
+            B, B, B, O, O, O, O, B,
+            B, G, G, O, B, O, B, B,
+            B, B, B, O, B, O, B, B,
+            B, B, B, O, B, O, B, B,
+            B, B, B, B, B, B, B, B,
+            B, B, B, B, B, B, B, B,
+        ]
+
+        sense.set_pixels(dashpi_display)
