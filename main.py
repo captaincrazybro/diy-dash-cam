@@ -26,6 +26,7 @@ def main():
     global_time = 1
     t = 1
 
+    camera.annotate_text = display_details(global_time, 13, convert_temp(sense.get_temperature()))
     camera.start_recording(f'{recordings_home}/recording-{video_count}.h264')
 
     while True:
@@ -70,6 +71,8 @@ def main():
             recording = True
             camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
             t = 0
+
+        print(handled_button, recording, global_time)
 
         # LED Grid recording blink
         recording_icon(sense, recording)
