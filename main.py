@@ -92,6 +92,8 @@ def main():
         # Check if recording duration met
         if t == recording_duration:
             camera.stop_recording()
+            convert_file(f'{recordings_home}/recording-{video_count}.h264')
+
             space_manager()
 
             video_count = add_count(video_count)

@@ -3,6 +3,7 @@ import os
 from sense_hat import SenseHat
 from math import *
 import shutil
+from subprocess import call
 
 velocity = 0
 recordings_home = "/home/pi/Desktop/Recordings"
@@ -168,3 +169,12 @@ def pop_front(array, pops):
         i += 1
 
     return new_array
+
+
+def convert_file(file):
+    mp4_file = file.split(".")[0] + ".mp4"
+
+    command = "MP4Box -add " + file + " " + mp4_file
+    call([command], shell=True)
+
+    os.remove(file)
