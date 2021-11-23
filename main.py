@@ -62,6 +62,7 @@ def main():
         # Handle button press event
         handled_button = handle_button(sense)
         if handled_button == 1:
+            print("clicks 1")
             if recording:
                 recording = False
                 camera.stop_recording()
@@ -74,6 +75,7 @@ def main():
                 camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
                 t = 0
         if handled_button > 1:
+            print("clicks more")
             show_transferring(sense)
             if recording:
                 recording_icon(sense, False)
@@ -102,6 +104,7 @@ def main():
 
         # Check if recording duration met or switching storage
         if t == recording_duration or (handled_button == -1 and recording):
+            print("hi2")
             # TODO: make these into a function: start_recording() and stop_recording()
             camera.stop_recording()
             convert_file(f'{get_recordings_dir(old_dir=True) if handled_button == -1 else get_recordings_dir()}/recording-{video_count}.h264')
