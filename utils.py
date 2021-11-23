@@ -266,3 +266,20 @@ def switch_drives(sense):
     sense.clear()
 
     sense.stick.get_events()
+
+
+def stop_recording(camera, video_count):
+    camera.stop_recording()
+    convert_file(f'{get_recordings_dir()}/recording-{video_count}.h264')
+    video_count = add_count(video_count)
+
+    return video_count
+
+
+def start_recording(camera, video_count, t):
+    space_manager()
+
+    camera.start_recording(f'{get_recordings_dir()}/recording-{video_count}.h264')
+    t = 0
+
+    return t

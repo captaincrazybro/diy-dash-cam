@@ -39,10 +39,7 @@ def main():
         if get_cpu_temperature() >= max_temp:
             if not overheating:
                 sense.clear()
-                camera.stop_recording()
-
-                convert_file(f'{get_recordings_dir()}/recording-{video_count}.h264')
-                video_count = add_count(video_count)
+                video_count = utils.stop_recording(camera, video_count)
 
                 overheating = True
             utils.show_temp_warning(sense)
@@ -53,10 +50,7 @@ def main():
             sense.clear()
             sleep(1)
 
-            space_manager()
-
-            camera.start_recording(f'{get_recordings_dir()}/recording-{video_count}.h264')
-            t = 0
+            t = utils.start_recording(camera, video_count, t)
             overheating = False
 
         # Handle button press event
@@ -64,49 +58,38 @@ def main():
         if handled_button == 1:
             if recording:
                 recording = False
-                camera.stop_recording()
-                convert_file(f'{get_recordings_dir()}/recording-{video_count}.h264')
+                video_count = utils.stop_recording(camera, video_count)
 
-                video_count = add_count(video_count)
-                space_manager()
             else:
+                t = utils.start_recording(camera, video_count, t)
                 recording = True
-                camera.start_recording(f'{get_recordings_dir()}/recording-{video_count}.h264')
-                t = 0
+
+        # Handle file transfer
         if handled_button > 1 and drive_connected():
             show_transferring(sense)
             if recording:
                 recording_icon(sense, False)
-                camera.stop_recording()
-                convert_file(f'{get_recordings_dir()}/recording-{video_count}.h264')
-                video_count = add_count(video_count)
+                video_count = utils.stop_recording(camera, video_count)
 
                 utils.transfer_files(transfer_all=True if handled_button is 3 else False)
 
-                space_manager()
-                camera.start_recording(f'{get_recordings_dir()}/recording-{video_count}.h264')
-                t = 0
+                t = utils.start_recording(camera, video_count, t)
             else:
                 utils.transfer_files(transfer_all=True if handled_button is 3 else False)
 
             sense.clear()
             sleep(1)
+        # Handle button hold event
         if handled_button == -1 and drive_connected():
             if recording:
-                camera.stop_recording()
-                convert_file(f'{get_recordings_dir()}/recording-{video_count}.h264')
-
+                video_count = utils.stop_recording(camera, video_count)
                 utils.switch_drives(sense)
 
-                space_manager()
-
-                video_count = add_count(video_count)
-                camera.start_recording(f'{get_recordings_dir()}/recording-{video_count}.h264')
-                t = 0
+                t = utils.start_recording(camera, video_count, t)
             else:
                 utils.switch_drives(sense)
 
-        # LED Grid recording blink
+        # Update LED grid
         recording_icon(sense, recording)
         show_storage_usage(sense)
 
@@ -117,20 +100,13 @@ def main():
         # Check if recording duration met or switching storage
         if t == recording_duration:
             # TODO: make these into a function: start_recording() and stop_recording()
-            camera.stop_recording()
-            convert_file(f'{get_recordings_dir()}/recording-{video_count}.h264')
-
-            space_manager()
-
-            video_count = add_count(video_count)
-            camera.start_recording(f'{get_recordings_dir()}/recording-{video_count}.h264')
-            t = 0
+            video_count = utils.stop_recording(camera, video_count)
+            t = utils.start_recording(camera, video_count, t)
 
         # Update display text (showing time, speed and temperature)
         camera.annotate_text = display_details(global_time, 13, convert_temp(sense.get_temperature()))
 
         t += 1
-
 
 def import_config():
     global max_temp, recording_duration
