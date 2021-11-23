@@ -82,6 +82,7 @@ def add_count(curr_count):
     file.close()
     return curr_count
 
+
 def show_temp_warning(sense):
     global showing_overheat
 
@@ -121,3 +122,34 @@ def show_check(sense):
         O, O, O, O, O, O, O, O,
     ]
     sense.set_pixels(check_mark)
+
+
+def drive_connected():
+    media_files = os.listdir("/media/pi")
+
+    return len(media_files) > 0
+
+
+def get_drive_name():
+    media_files = os.listdir("/media/pi")
+    return media_files[0]
+
+
+def transfer_files(transfer_all: bool):
+    if not drive_connected():
+        return
+
+    drive_path = f'/media/pi{get_drive_name()}/Transferred-Recordings'
+    if not os.path.isdir(drive_path):
+        os.mkdir(drive_path, 0o666)
+
+    files = os.listdir(recordings_home)
+
+    if not transfer_all:
+        files.sort(key=file_sort, reverse=True)
+        new_files = [files[0], files[1], files[2], files[3], files[4]]
+    else:
+        new_files = files
+
+    for file in new_files:
+        shutil.copyfile(f'{recordings_home}/{file}', f'{drive_path}/{file}')

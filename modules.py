@@ -1,5 +1,6 @@
 import shutil
 from multiprocessing import Process
+import utils
 
 on_off = False
 toggle_recording = False
@@ -63,7 +64,7 @@ def handle_button(sense):
                 return True
             elif clicks == 2:
                 clicks = 0
-                print("DOUBLE CLICK")
+                utils.transfer_files(transfer_all=False)
                 return False
             clicks = 0
         else:
@@ -80,7 +81,7 @@ def handle_button(sense):
     if clicks >= 3:
         reading_button = False
         clicks = 0
-        print("TRIPLE CLICK")
+        utils.transfer_files(transfer_all=True)
     elif total_holds >= 3:
         reading_button = False
         clicks = 0

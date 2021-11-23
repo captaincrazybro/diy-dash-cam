@@ -25,7 +25,6 @@ def main():
     video_count = utils.get_count()
     global_time = 0
     t = 0
-    i = 0
 
     camera.start_recording(f'{recordings_home}/recording-{video_count}.h264')
 
