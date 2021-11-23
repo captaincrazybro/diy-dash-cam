@@ -111,7 +111,7 @@ def get_releases(events):
     releases = 0
 
     for event in events:
-        if event.action == "released":
+        if event.action == "released" and event.direction == "middle":
             releases += 1
 
     return releases
