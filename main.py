@@ -78,8 +78,8 @@ def main():
                 camera.stop_recording()
                 convert_file(f'{recordings_home}/recording-{video_count}.h264')
                 video_count = add_count(video_count)
-                sleep(0.5)
 
+                print(os.listdir(recordings_home))
                 utils.transfer_files(transfer_all=True if handled_button is 3 else False)
 
                 space_manager()
@@ -89,8 +89,6 @@ def main():
 
             else:
                 utils.transfer_files(transfer_all= True if handled_button is 3 else False)
-
-        print(handled_button, recording, global_time)
 
         # LED Grid recording blink
         recording_icon(sense, recording)
