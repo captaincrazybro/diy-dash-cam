@@ -7,6 +7,7 @@ toggle_recording = False
 clicks = 0
 reading_button = False
 total_holds = 0
+releases = 0
 
 
 def recording_icon(sense, is_recording):
@@ -54,7 +55,7 @@ def show_storage_usage(sense):
 
 
 def handle_button(sense):
-    global reading_button, clicks, total_holds
+    global reading_button, clicks, total_holds, releases
     events = sense.stick.get_events()
     if len(events) == 0:
         if reading_button is True:
@@ -67,27 +68,28 @@ def handle_button(sense):
                 clicks = 0
                 return 2
             clicks = 0
+            releases = 0
             return 0
         else:
             return 0
 
     reading_button = True
 
-    presses = get_presses(events)
-    holds = get_holds(events)
+    clicks += get_presses(events)
+    total_holds += get_holds(events)
+    releases += get_releases(events)
 
-    clicks += presses
-    total_holds += holds
-
-    if clicks >= 3:
+    if clicks >= 3 and releases > 0:
         reading_button = 3
         clicks = 0
         total_holds = 0
+        releases = 0
         return 3
     elif total_holds >= 3:
         reading_button = 0
         clicks = 0
         total_holds = 0
+        releases = 0
         return -1
 
     return 0
