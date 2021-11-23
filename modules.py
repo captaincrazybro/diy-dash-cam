@@ -62,14 +62,15 @@ def handle_button(sense):
             total_holds = 0
             if clicks == 1:
                 clicks = 0
-                return True
+                return 1
             elif clicks == 2:
                 clicks = 0
                 utils.transfer_files(transfer_all=False)
-                return False
+                return 2
             clicks = 0
+            return 0
         else:
-            return False
+            return 0
 
     reading_button = True
 
@@ -80,17 +81,17 @@ def handle_button(sense):
     total_holds += holds
 
     if clicks >= 3:
-        reading_button = False
+        reading_button = 3
         clicks = 0
         total_holds = 0
-        utils.transfer_files(transfer_all=True)
+        return 3
     elif total_holds >= 3:
-        reading_button = False
+        reading_button = 0
         clicks = 0
         total_holds = 0
         print("HOLD CLICK")
 
-    return False
+    return 0
 
 
 def get_presses(events):

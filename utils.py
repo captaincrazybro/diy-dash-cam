@@ -152,7 +152,9 @@ def transfer_files(transfer_all: bool):
         new_files = files
 
     for file in new_files:
-        shutil.copyfile(f'{recordings_home}/{file}', f'{drive_path}/{file}')
+        new_file = f'{drive_path}/{file}'
+        if not os.path.isfile(new_file):
+            shutil.copyfile(f'{recordings_home}/{file}', new_file)
 
 
 def pop_front(array, pops):
