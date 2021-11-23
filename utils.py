@@ -261,5 +261,7 @@ def switch_drives(sense):
     use_drive = not use_drive
     show_storage_switch(sense)
 
-    sleep(2)
+    sleep(1)
     sense.clear()
+
+    sense.get_events()
