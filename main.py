@@ -60,7 +60,7 @@ def main():
 
         # Handle button press event
         handled_button = handle_button(sense)
-        if handled_button is 1:
+        if handled_button == 1:
             if recording:
                 recording = False
                 camera.stop_recording()
@@ -86,8 +86,8 @@ def main():
                 camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
                 t = 0
                 sleep(1)
-
             else:
+                print("THIS CALLED")
                 utils.transfer_files(transfer_all= True if handled_button is 3 else False)
 
         # LED Grid recording blink
