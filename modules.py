@@ -73,7 +73,6 @@ def handle_button(sense):
 
     reading_button = True
 
-    print(events)
     presses = get_presses(events)
     holds = get_holds(events)
 
