@@ -264,4 +264,4 @@ def switch_drives(sense):
     sleep(1)
     sense.clear()
 
-    sense.get_events()
+    sense.stick.get_events()
