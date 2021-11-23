@@ -76,8 +76,8 @@ def get_count():
 
 
 def add_count(curr_count):
-    file = open("count", "w")
     curr_count += 1
+    file = open("count", "w")
     file.write(f'{curr_count}')
     file.close()
     return curr_count
