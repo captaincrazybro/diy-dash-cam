@@ -139,7 +139,7 @@ def transfer_files(transfer_all: bool):
     if not drive_connected():
         return
 
-    drive_path = f'/media/pi{get_drive_name()}/Transferred-Recordings'
+    drive_path = f'/media/pi/{get_drive_name()}/Transferred-Recordings'
     if not os.path.isdir(drive_path):
         os.mkdir(drive_path, 0o666)
 
