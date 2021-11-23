@@ -41,7 +41,7 @@ def main():
                 sense.clear()
                 camera.stop_recording()
 
-                convert_file(f'{recordings_home}/recording-{video_count}.h264')
+                convert_file(f'{get_recordings_dir()}/recording-{video_count}.h264')
                 video_count = add_count(video_count)
 
                 overheating = True
@@ -55,7 +55,7 @@ def main():
 
             space_manager()
 
-            camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
+            camera.start_recording(f'{get_recordings_dir()}/recording-{video_count}.h264')
             t = 0
             overheating = False
 
@@ -65,26 +65,26 @@ def main():
             if recording:
                 recording = False
                 camera.stop_recording()
-                convert_file(f'{recordings_home}/recording-{video_count}.h264')
+                convert_file(f'{get_recordings_dir()}/recording-{video_count}.h264')
 
                 video_count = add_count(video_count)
                 space_manager()
             else:
                 recording = True
-                camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
+                camera.start_recording(f'{get_recordings_dir()}/recording-{video_count}.h264')
                 t = 0
         if handled_button > 1 and drive_connected():
             show_transferring(sense)
             if recording:
                 recording_icon(sense, False)
                 camera.stop_recording()
-                convert_file(f'{recordings_home}/recording-{video_count}.h264')
+                convert_file(f'{get_recordings_dir()}/recording-{video_count}.h264')
                 video_count = add_count(video_count)
 
                 utils.transfer_files(transfer_all=True if handled_button is 3 else False)
 
                 space_manager()
-                camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
+                camera.start_recording(f'{get_recordings_dir()}/recording-{video_count}.h264')
                 t = 0
             else:
                 utils.transfer_files(transfer_all= True if handled_button is 3 else False)
