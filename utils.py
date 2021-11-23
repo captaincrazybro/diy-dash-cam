@@ -162,7 +162,7 @@ def pop_front(array, pops):
     new_array = [None] * pops
     i = 0
     while i < pops:
-        new_array[0] = array[i]
+        new_array[i] = array[i]
         i += 1
 
     return new_array
