@@ -61,11 +61,9 @@ def handle_button(sense):
             reading_button = False
             total_holds = 0
             if clicks == 1:
-                print("Single Click", clicks)
                 clicks = 0
                 return True
             elif clicks == 2:
-                print("Double Click", clicks)
                 clicks = 0
                 utils.transfer_files(transfer_all=False)
                 return False
@@ -83,7 +81,6 @@ def handle_button(sense):
     total_holds += holds
 
     if clicks >= 3:
-        print("Triple Click", clicks)
         reading_button = False
         clicks = 0
         total_holds = 0

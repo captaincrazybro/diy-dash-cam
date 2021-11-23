@@ -147,9 +147,21 @@ def transfer_files(transfer_all: bool):
 
     if not transfer_all:
         files.sort(key=file_sort, reverse=True)
-        new_files = [files[0], files[1], files[2], files[3], files[4]]
+        new_files = pop_front(files, 5)
     else:
         new_files = files
 
     for file in new_files:
         shutil.copyfile(f'{recordings_home}/{file}', f'{drive_path}/{file}')
+
+
+def pop_front(array, pops):
+    if len(array) < pops:
+        pops = len(array)
+
+    new_array = []
+    i = 0
+    while i < pops:
+        new_array[0] = array[i]
+
+    return new_array
