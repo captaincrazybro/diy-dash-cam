@@ -91,6 +91,20 @@ def main():
 
             sense.clear()
             sleep(1)
+        if handled_button == -1 and drive_connected():
+            if recording:
+                camera.stop_recording()
+                convert_file(f'{get_recordings_dir()}/recording-{video_count}.h264')
+
+                utils.switch_drives(sense)
+
+                space_manager()
+
+                video_count = add_count(video_count)
+                camera.start_recording(f'{get_recordings_dir()}/recording-{video_count}.h264')
+                t = 0
+            else:
+                utils.switch_drives(sense)
 
         # LED Grid recording blink
         recording_icon(sense, recording)
@@ -101,12 +115,10 @@ def main():
             continue
 
         # Check if recording duration met or switching storage
-        if t == recording_duration or (handled_button == -1 and recording):
+        if t == recording_duration:
             # TODO: make these into a function: start_recording() and stop_recording()
             camera.stop_recording()
-            convert_file(f'{get_recordings_dir(old_dir=True) if handled_button == -1 else get_recordings_dir()}/recording-{video_count}.h264')
-            if handled_button == -1:
-                sleep(2)
+            convert_file(f'{get_recordings_dir()}/recording-{video_count}.h264')
 
             space_manager()
 

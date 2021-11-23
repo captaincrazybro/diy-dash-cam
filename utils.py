@@ -4,6 +4,7 @@ from sense_hat import SenseHat
 from math import *
 import shutil
 from subprocess import call
+from time import sleep
 
 velocity = 0
 recordings_home = "/home/pi/Desktop/Recordings"
@@ -49,6 +50,9 @@ def get_velocity():
 
 
 def space_manager():
+    if use_drive:
+        return
+
     total, used, free = shutil.disk_usage("/")
     perc_used = used / total
 
@@ -202,10 +206,8 @@ def show_transferring(sense):
     sense.set_pixels(display)
 
 
-def get_recordings_dir(old_dir: bool = False):
-    check = not use_drive if old_dir else use_drive
-
-    if check:
+def get_recordings_dir():
+    if use_drive:
         path = f'/media/pi/{get_drive_name()}/Recordings'
         if not os.path.isdir(path):
             os.mkdir(path, 0o666)
@@ -251,3 +253,13 @@ def show_storage_switch(sense):
         ]
 
         sense.set_pixels(dashpi_display)
+
+
+def switch_drives(sense):
+    global use_drive
+    sense.clear()
+    use_drive = not use_drive
+    show_storage_switch(sense)
+
+    sleep(2)
+    sense.clear()
