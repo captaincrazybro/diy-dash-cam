@@ -64,7 +64,6 @@ def main():
                 recording = True
                 camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
                 t = 0
-        print("Other test")
 
         # LED Grid recording blink
         recording_icon(sense, recording)
