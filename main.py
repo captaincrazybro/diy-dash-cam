@@ -56,8 +56,8 @@ def main():
 
         # Handle button press event
         handled_button = handle_button(sense)
-        if handled_button > 0:
-            if recording or handled_button > 1:
+        if handled_button is 1:
+            if recording:
                 recording = False
                 camera.stop_recording()
                 video_count = add_count(video_count)
@@ -67,8 +67,13 @@ def main():
                 camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
                 t = 0
         if handled_button > 1:
+            recording_icon(sense, False)
+            camera.stop_recording()
+            video_count = add_count(video_count)
+
             utils.transfer_files(transfer_all=True if handled_button is 3 else False)
-            recording = True
+
+            space_manager()
             camera.start_recording(f'/home/pi/Desktop/Recordings/recording-{video_count}.h264')
             t = 0
 
