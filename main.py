@@ -100,7 +100,7 @@ def main():
             continue
 
         # Check if recording duration met or switching storage
-        if t == recording_duration or handled_button == -1:
+        if t == recording_duration or (handled_button == -1 and recording):
             # TODO: make these into a function: start_recording() and stop_recording()
             camera.stop_recording()
             convert_file(f'{get_recordings_dir(old_dir=True) if handled_button == -1 else get_recordings_dir()}/recording-{video_count}.h264')
