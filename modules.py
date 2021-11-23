@@ -79,13 +79,13 @@ def handle_button(sense):
     total_holds += get_holds(events)
     releases += get_releases(events)
 
-    if clicks >= 3 and releases > 0:
+    if clicks >= 3:
         reading_button = 3
         clicks = 0
         total_holds = 0
         releases = 0
         return 3
-    elif total_holds >= 3:
+    elif total_holds >= 3 and releases > 0:
         reading_button = 0
         clicks = 0
         total_holds = 0
