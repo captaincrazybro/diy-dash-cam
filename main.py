@@ -19,6 +19,7 @@ def main():
 
     camera = PiCamera()
     sense = SenseHat()
+    gpsp = GpsPoller()
     sense.clear()
 
     overheating = False
@@ -27,7 +28,8 @@ def main():
     global_time = 0
     t = 1
 
-    camera.annotate_text = display_details(global_time, 13, convert_temp(sense.get_temperature()))
+    gpsp.start()
+    camera.annotate_text = display_details(gpsp.utc, parse_velocity(gpsd.fix.speed), convert_temp(sense.get_temperature()))
     camera.start_recording(f'{recordings_home}/recording-{video_count}.h264')
 
     while True:
@@ -57,7 +59,7 @@ def main():
         handled_button = handle_button(sense)
         if handled_button == 1:
             if recording:
-                recording = False
+                recording = False 
                 video_count = utils.stop_recording(camera, video_count)
 
             else:

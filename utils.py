@@ -5,16 +5,33 @@ from math import *
 import shutil
 from subprocess import call
 from time import sleep
+from gps import *
+import threading
 
 velocity = 0
 recordings_home = "/home/pi/Desktop/Recordings"
 showing_overheat = False
 use_drive = False
 max_file_usage = 0.90
+gpsd = None  # setting the global variable
+
+
+class GpsPoller(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+        global gpsd  # bring it in scope
+        gpsd = gps(mode=WATCH_ENABLE)  # starting the stream of info
+        self.current_value = None
+        self.running = True  # setting the thread running to true
+
+    def run(self):
+        global gpsd
+        while self.running:
+            gpsd.next()  # this will continue to loop and grab EACH set of gpsd info to clear the buffer
 
 
 def display_details(time, velocity, temperature):
-    return f'Time: {time} seconds, Velocity: {velocity} mph, Temperature {temperature}'
+    return f'{time}   {velocity} mph   {temperature} C'
 
 
 def convert_temp(celsius):
@@ -181,7 +198,7 @@ def pop_front(array, pops):
 def convert_file(file):
     mp4_file = file.split(".")[0] + ".mp4"
 
-    command = "ffmpeg -framerate 25 -i \"" + file + "\" -c copy  \"" + mp4_file + "\""
+    command = "ffmpeg -framerate 25 -i \"" + file + "\" -c copy \"" + mp4_file + "\""
     call([command], shell=True)
 
     os.remove(file)
@@ -283,3 +300,10 @@ def start_recording(camera, video_count, t):
     t = 0
 
     return t
+
+
+def parse_velocity(velocity):
+    if f'{velocity}' == 'nan':
+        return 0
+    else:
+        return round(velocity)
