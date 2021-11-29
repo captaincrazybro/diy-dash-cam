@@ -33,6 +33,8 @@ class GpsPoller(threading.Thread):
 def display_details(temperature):
     if gpsd is None:
         return 'Obtaining GPS...'
+
+    print(gpsd if gpsd is None else gpsd.fix.speed)
     return f'{gpsd.utc}   {parse_velocity(gpsd.fix.speed)} mph   {temperature} C'
 
 
