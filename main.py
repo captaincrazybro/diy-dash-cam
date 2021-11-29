@@ -106,7 +106,7 @@ def main():
             t = utils.start_recording(camera, video_count, t)
 
         # Update display text (showing time, speed and temperature)
-        camera.annotate_text = display_details(global_time, 13, convert_temp(sense.get_temperature()))
+        camera.annotate_text = display_details(convert_temp(sense.get_temperature()))
 
         t += 1
 
