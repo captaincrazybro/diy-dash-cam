@@ -30,8 +30,10 @@ class GpsPoller(threading.Thread):
             gpsd.next()  # this will continue to loop and grab EACH set of gpsd info to clear the buffer
 
 
-def display_details(time, velocity, temperature):
-    return f'{time}   {velocity} mph   {temperature} C'
+def display_details(temperature):
+    if gpsd is None:
+        return 'Obtaining GPS...'
+    return f'{gpsd.utc}   {parse_velocity(gpsd.fix.speed)} mph   {temperature} C'
 
 
 def convert_temp(celsius):
