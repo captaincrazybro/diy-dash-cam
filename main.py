@@ -29,7 +29,7 @@ def main():
     t = 1
 
     gpsp.start()
-    camera.annotate_text = display_details(gpsp.utc, parse_velocity(gpsd.fix.speed), convert_temp(sense.get_temperature()))
+    camera.annotate_text = display_details(gpsd.utc, parse_velocity(gpsd.fix.speed), convert_temp(sense.get_temperature()))
     camera.start_recording(f'{recordings_home}/recording-{video_count}.h264')
 
     while True:
