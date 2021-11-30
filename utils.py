@@ -36,10 +36,10 @@ def gpsd_is_set():
 
 
 def display_details(temperature):
-    if gpsd is None:
+    print(gpsd if gpsd is None else gpsd.fix.speed)
+    if not gpsd_is_set():
         return 'Obtaining GPS...'
 
-    print(gpsd if gpsd is None else gpsd.fix.speed)
     return f'{gpsd.utc}   {parse_velocity(gpsd.fix.speed)} mph   {temperature} C'
 
 
