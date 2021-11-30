@@ -24,6 +24,7 @@ def main():
     overheating = False
     recording = True
     shown_gps_found = False
+    show_clear = False
     video_count = utils.get_count()
     global_time = 0
     t = 1
@@ -92,10 +93,13 @@ def main():
                 utils.switch_drives(sense)
 
         # Update LED grid
-        print(shown_gps_found, gpsd)
+        if show_clear:
+            sense.clear()
+
         if not shown_gps_found and gpsd_is_set():
             shown_gps_found = True
             show_gps_found(sense)
+            show_clear = True
         else:
             recording_icon(sense, recording)
             show_storage_usage(sense)
