@@ -31,7 +31,7 @@ class GpsPoller(threading.Thread):
 
 
 def gpsd_is_set():
-    return gpsd is not None
+    return gpsd is not None and f'{gpsd.fix.speed}' is not 'nan'
 
 
 def display_details(temperature):
