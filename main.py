@@ -92,8 +92,12 @@ def main():
                 utils.switch_drives(sense)
 
         # Update LED grid
-        recording_icon(sense, recording)
-        show_storage_usage(sense)
+        if not shown_gps_found and gpsd is not None:
+            shown_gps_found = True
+            show_gps_found(sense)
+        else:
+            recording_icon(sense, recording)
+            show_storage_usage(sense)
 
         # Check if camera is supposed to be recording
         if not recording:
@@ -106,11 +110,7 @@ def main():
             t = utils.start_recording(camera, video_count, t)
 
         # Update display text (showing time, speed and temperature)
-        if not shown_gps_found and gpsd is not None:
-            shown_gps_found = True
-            shown_gps_found(sense)
-        else:
-            camera.annotate_text = display_details(convert_temp(sense.get_temperature()))
+        camera.annotate_text = display_details(convert_temp(sense.get_temperature()))
 
         t += 1
 
