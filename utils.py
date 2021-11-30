@@ -268,7 +268,7 @@ def show_storage_switch(sense):
         sense.set_pixels(drive_display)
 
     else:
-        B = (0, 0, 0)
+        B = (255, 255, 255)
         G = (0, 255, 0)
         O = (255, 165, 0)
 
