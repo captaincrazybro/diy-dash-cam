@@ -31,6 +31,7 @@ class GpsPoller(threading.Thread):
 
 
 def gpsd_is_set():
+    print(gpsd.fix.speed)
     return gpsd is not None and f'{gpsd.fix.speed}' is not 'nan'
 
 
