@@ -92,6 +92,7 @@ def main():
                 utils.switch_drives(sense)
 
         # Update LED grid
+        print(shown_gps_found, gpsd)
         if not shown_gps_found and gpsd is not None:
             shown_gps_found = True
             show_gps_found(sense)
