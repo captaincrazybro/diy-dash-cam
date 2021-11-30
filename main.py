@@ -1,7 +1,7 @@
 import os.path
 import this
 
-from picamera import PiCamera
+import picamera
 from time import sleep
 from sense_hat import SenseHat
 import yaml
@@ -16,7 +16,7 @@ def main():
     global max_temp
     import_config()
 
-    camera = PiCamera()
+    camera = picamera.PiCamera()
     sense = SenseHat()
     gpsp = GpsPoller()
     sense.clear()
@@ -30,6 +30,7 @@ def main():
     t = 1
 
     gpsp.start()
+    camera.annotate_background = camera.Color('black')
     camera.annotate_text = display_details(convert_temp(sense.get_temperature()))
     camera.start_recording(f'{recordings_home}/recording-{video_count}.h264')
 
