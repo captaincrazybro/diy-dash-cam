@@ -12,7 +12,6 @@ from modules import *
 recording_duration = 10
 max_temp = 80
 
-
 def main():
     global max_temp
     import_config()
@@ -24,6 +23,7 @@ def main():
 
     overheating = False
     recording = True
+    shown_gps_found = False
     video_count = utils.get_count()
     global_time = 0
     t = 1
@@ -106,7 +106,11 @@ def main():
             t = utils.start_recording(camera, video_count, t)
 
         # Update display text (showing time, speed and temperature)
-        camera.annotate_text = display_details(convert_temp(sense.get_temperature()))
+        if not shown_gps_found and gpsd is not None:
+            shown_gps_found = True
+            shown_gps_found(sense)
+        else:
+            camera.annotate_text = display_details(convert_temp(sense.get_temperature()))
 
         t += 1
 

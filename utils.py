@@ -315,3 +315,21 @@ def parse_velocity(velocity):
         return 0
     else:
         return round(velocity)
+
+
+def show_gps_found(sense):
+    O = (0, 0, 0)
+    W = (255, 255, 255)
+
+    gps_found = [
+        O, O, O, O, O, O, O, O,
+        O, O, W, W, W, W, O, O,
+        O, W, O, O, O, O, W, O,
+        O, O, O, W, W, O, O, O,
+        O, O, W, O, O, W, O, O,
+        O, O, O, W, W, O, O, O,
+        O, O, O, W, W, O, O, O,
+        O, O, O, O, O, O, O, O,
+    ]
+
+    sense.set_pixels(gps_found)
