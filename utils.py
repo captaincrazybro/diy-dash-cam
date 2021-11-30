@@ -30,6 +30,10 @@ class GpsPoller(threading.Thread):
             gpsd.next()  # this will continue to loop and grab EACH set of gpsd info to clear the buffer
 
 
+def gpsd_is_set():
+    return gpsd is not None
+
+
 def display_details(temperature):
     if gpsd is None:
         return 'Obtaining GPS...'

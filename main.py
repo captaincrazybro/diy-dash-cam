@@ -93,7 +93,7 @@ def main():
 
         # Update LED grid
         print(shown_gps_found, gpsd)
-        if not shown_gps_found and gpsd is not None:
+        if not shown_gps_found and gpsd_is_set():
             shown_gps_found = True
             show_gps_found(sense)
         else:
