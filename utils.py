@@ -229,6 +229,10 @@ def show_transferring(sense):
 
 
 def get_recordings_dir():
+    global use_drive
+    if use_drive and not drive_connected():
+        use_drive = False
+
     if use_drive:
         path = f'/media/pi/{get_drive_name()}/Recordings'
         if not os.path.isdir(path):
