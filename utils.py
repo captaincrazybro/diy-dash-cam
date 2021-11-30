@@ -6,6 +6,7 @@ import shutil
 from subprocess import call
 from time import sleep
 from gps import *
+import numpy as np
 import threading
 
 velocity = 0
@@ -31,8 +32,7 @@ class GpsPoller(threading.Thread):
 
 
 def gpsd_is_set():
-    print(f'{gpsd.fix.speed}')
-    return gpsd is not None and f'{gpsd.fix.speed}' is not 'nan'
+    return gpsd is not None and not np.isnan(gpsd.fix.speed)
 
 
 def display_details(temperature):
