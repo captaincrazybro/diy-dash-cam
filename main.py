@@ -25,7 +25,7 @@ def main():
     recording = True
     shown_gps_found = False
     show_clear = False
-    at_rest = False
+    at_rest = True
     video_count = utils.get_count()
     global_time = 0
     t = 1
