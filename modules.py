@@ -30,7 +30,7 @@ def recording_icon(sense, is_recording):
 
 
 def show_storage_usage(sense):
-    total, used, free = shutil.disk_usage("/")
+    total, used, free = shutil.disk_usage(f'/media/pi/${utils.get_drive_name()}/' if utils.use_drive else "/")
     perc_used = used / total
 
     if perc_used >= 0.25:
