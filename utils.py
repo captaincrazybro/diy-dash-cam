@@ -316,13 +316,15 @@ def start_recording(camera, video_count, t):
 
 
 def parse_velocity(velocity):
-    if f'{velocity}' == 'nan':
+    if np.isnan(velocity):
         return 0
     else:
         return round(velocity/0.447)
 
 
 def velocity_is_rest():
+    if np.isnan(velocity):
+        return False
     return parse_velocity(gpsd.fix.speed) <= 3
 
 
