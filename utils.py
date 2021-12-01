@@ -319,7 +319,11 @@ def parse_velocity(velocity):
     if f'{velocity}' == 'nan':
         return 0
     else:
-        return round(velocity)
+        return round(velocity/0.447)
+
+
+def velocity_is_rest():
+    return parse_velocity(gpsd.fix.speed) <= 3
 
 
 def show_gps_found(sense):

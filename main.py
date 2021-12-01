@@ -25,6 +25,7 @@ def main():
     recording = True
     shown_gps_found = False
     show_clear = False
+    at_rest = True
     video_count = utils.get_count()
     global_time = 0
     t = 1
@@ -110,10 +111,15 @@ def main():
             continue
 
         # Check if recording duration met or switching storage
-        if t == recording_duration:
+        if t == recording_duration or (velocity_is_rest() and not at_rest):
             # TODO: make these into a function: start_recording() and stop_recording()
             video_count = utils.stop_recording(camera, video_count)
             t = utils.start_recording(camera, video_count, t)
+
+        if velocity_is_rest() and not at_rest:
+            at_rest = True
+        elif not velocity_is_rest() and at_rest:
+            at_rest = False
 
         # Update display text (showing time, speed and temperature)
         camera.annotate_text = display_details(convert_temp(sense.get_temperature()))
