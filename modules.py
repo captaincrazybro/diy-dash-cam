@@ -34,11 +34,11 @@ def show_storage_usage(sense):
     # perc_used = used / total
     perc_used = 0.50
 
-    if perc_used >= 0.25:
+    if perc_used >= 0.75:
         status_color = (255, 0, 0)
     elif perc_used >= 0.50:
         status_color = (255, 255, 0)
-    elif perc_used >= 0.75:
+    elif perc_used >= 0.25:
         status_color = (255, 165, 0)
     else:
         status_color = (0, 255, 0)
