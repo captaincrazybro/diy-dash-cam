@@ -123,3 +123,23 @@ def get_holds(events):
             holds += 1
 
     return holds
+
+
+def show_gps_status(sense):
+    gps_is_set = utils.gpsd_is_set()
+
+    if gps_is_set:
+        white = (255, 255, 255)
+        sense.set_pixel(1, 6, white)
+        sense.set_pixel(2, 5, white)
+        sense.set_pixel(2, 6, white)
+        sense.set_pixel(3, 4, white)
+        sense.set_pixel(3, 5, white)
+        sense.set_pixel(3, 6, white)
+    else:
+        red = (255, 0, 0)
+        sense.set_pixel(1, 4, red)
+        sense.set_pixel(1, 6, red)
+        sense.set_pixel(2, 5, red)
+        sense.set_pixel(3, 4, red)
+        sense.set_pixel(3, 6, red)

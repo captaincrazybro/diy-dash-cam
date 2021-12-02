@@ -344,3 +344,4 @@ def show_gps_found(sense):
     ]
 
     sense.set_pixels(gps_found)
+

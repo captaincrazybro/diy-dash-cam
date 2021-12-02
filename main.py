@@ -95,16 +95,9 @@ def main():
                 utils.switch_drives(sense)
 
         # Update LED grid
-        if show_clear:
-            sense.clear()
-
-        if not shown_gps_found and gpsd_is_set():
-            shown_gps_found = True
-            show_gps_found(sense)
-            show_clear = True
-        else:
-            recording_icon(sense, recording)
-            show_storage_usage(sense)
+        recording_icon(sense, recording)
+        show_gps_status(sense)
+        show_storage_usage(sense)
 
         # Check if camera is supposed to be recording
         if not recording:
