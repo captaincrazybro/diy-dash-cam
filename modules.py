@@ -138,8 +138,11 @@ def show_gps_status(sense):
         sense.set_pixel(6, 3, white)
     else:
         red = (255, 0, 0)
+        white = (255, 255, 255)
         sense.set_pixel(4, 1, red)
+        sense.set_pixel(5, 1, white)
         sense.set_pixel(6, 1, red)
         sense.set_pixel(5, 2, red)
         sense.set_pixel(4, 3, red)
+        sense.set_pixel(5, 3, white)
         sense.set_pixel(6, 3, red)
