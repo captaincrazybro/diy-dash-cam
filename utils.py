@@ -207,7 +207,7 @@ def pop_front(array, pops):
 def convert_file(file):
     mp4_file = file.split(".")[0] + ".mp4"
 
-    command = "MP4Box -add \"" + file + "\" \"" + mp4_file + "\""
+    command = "ffmpeg -framerate 25 -i \"" + file + "\" -c copy \"" + mp4_file + "\""
     call([command], shell=True)
 
     os.remove(file)
