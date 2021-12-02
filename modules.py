@@ -30,15 +30,15 @@ def recording_icon(sense, is_recording):
 
 
 def show_storage_usage(sense):
-    total, used, free = shutil.disk_usage("/")
+    total, used, free = shutil.disk_usage(f'/media/pi/{utils.get_drive_name()}/' if utils.use_drive else "/")
     perc_used = used / total
 
-    if perc_used >= 0.25:
+    if perc_used >= 0.75:
         status_color = (255, 0, 0)
     elif perc_used >= 0.50:
+        status_color = (255, 100, 0)
+    elif perc_used >= 0.25:
         status_color = (255, 255, 0)
-    elif perc_used >= 0.75:
-        status_color = (255, 165, 0)
     else:
         status_color = (0, 255, 0)
 
