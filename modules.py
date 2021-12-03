@@ -127,7 +127,6 @@ def get_holds(events):
 
 def show_gps_status(sense):
     gps_is_set = utils.gpsd_is_set()
-    print(gps_is_set, utils.gpsd.fix.speed)
 
     if gps_is_set:
         white = (255, 255, 255)
