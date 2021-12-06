@@ -107,6 +107,7 @@ def main():
 
         # Check if recording duration met or switching storage
         if t == recording_duration or (velocity_is_rest() and not at_rest):
+            print("next video")
             # TODO: make these into a function: start_recording() and stop_recording()
             video_count = utils.stop_recording(camera, video_count)
             t = utils.start_recording(camera, video_count, t)
