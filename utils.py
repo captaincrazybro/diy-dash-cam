@@ -31,6 +31,14 @@ class GpsPoller(threading.Thread):
             gpsd.next()  # this will continue to loop and grab EACH set of gpsd info to clear the buffer
 
 
+class GpsEnhancer(threading.Thread):
+    def __init(self):
+        threading.Thread.__init__(self)
+
+    def run(self):
+        command = "cgps -s"
+        call([command], shell=True)
+
 def gpsd_is_set():
     return gpsd is not None and not np.isnan(gpsd.fix.speed)
 
