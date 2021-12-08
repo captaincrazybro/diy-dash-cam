@@ -33,7 +33,7 @@ def main():
     camera.rotation = 90
     gpsp.start()
     camera.annotate_background = picamera.Color('black')
-    camera.annotate_text = display_details(convert_temp(sense.get_temperature()))
+    camera.annotate_text = display_details(convert_temp(sense.get_temperature_from_pressure()))
     # camera.start_preview()
     camera.start_recording(f'{recordings_home}/recording-{video_count}.h264')
 
@@ -120,7 +120,7 @@ def main():
         #     at_rest = False
 
         # Update display text (showing time, speed and temperature)
-        camera.annotate_text = display_details(convert_temp(sense.get_temperature()))
+        camera.annotate_text = display_details(convert_temp(sense.get_temperature_from_pressure()))
 
         t += 1
 
