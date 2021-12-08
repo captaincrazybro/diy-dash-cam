@@ -3,7 +3,7 @@ import os
 from sense_hat import SenseHat
 from math import *
 import shutil
-from subprocess import call
+from subprocess import call, DEVNULL
 from time import sleep
 from gps import *
 import numpy as np
@@ -216,7 +216,7 @@ def convert_file(file):
     mp4_file = file.split(".")[0] + ".mp4"
 
     command = "ffmpeg -framerate 25 -i \"" + file + "\" -c copy \"" + mp4_file + "\""
-    call([command], shell=True)
+    call([command], shell=True, stdout=DEVNULL)
 
     os.remove(file)
 
