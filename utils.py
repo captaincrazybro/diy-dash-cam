@@ -38,9 +38,9 @@ class GpsEnhancer(threading.Thread):
 
     def run(self):
         command = "cgps -s"
-        fh = open("NUL", "w")
-        call([command], shell=True, stdout=fh, stderr=fh)
-        fh.close()
+        # fh = open("NUL", "w")
+        call([command], shell=True)#, stdout=fh, stderr=fh)
+        # fh.close()
 
 def gpsd_is_set():
     return gpsd is not None and not np.isnan(gpsd.fix.speed)
