@@ -129,7 +129,7 @@ def show_gps_status(sense):
     gps_is_set = utils.gpsd_is_set()
 
     if gps_is_set:
-        print("gps set           ")
+        print("gps set")
         white = (255, 255, 255)
         no = (0, 0, 0)
         sense.set_pixel(4, 1, no)
@@ -140,7 +140,7 @@ def show_gps_status(sense):
         sense.set_pixel(5, 3, white)
         sense.set_pixel(6, 3, white)
     else:
-        print("gps not set           ")
+        print("gps not set")
         red = (255, 0, 0)
         no = (0, 0, 0)
         sense.set_pixel(4, 1, red)
