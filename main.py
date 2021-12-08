@@ -31,7 +31,7 @@ def main():
     t = 1
 
     camera.rotation = 90
-    gpsp.start()
+    # gpsp.start()
     camera.annotate_background = picamera.Color('black')
     camera.annotate_text = display_details(convert_temp(sense.get_temperature_from_pressure()))
     # camera.start_preview()
