@@ -26,15 +26,17 @@ def main():
     recording = True
     shown_gps_found = False
     show_clear = False
-    at_rest = True
+    at_rest = False
     video_count = utils.get_count()
     global_time = 0
     t = 1
 
+    camera.rotation = 90
     gpsp.start()
     gpsEnhancer.start()
     camera.annotate_background = picamera.Color('black')
     camera.annotate_text = display_details(convert_temp(sense.get_temperature()))
+    # camera.start_preview()
     camera.start_recording(f'{recordings_home}/recording-{video_count}.h264')
 
     while True:
@@ -77,6 +79,7 @@ def main():
             if recording:
                 recording_icon(sense, False)
                 video_count = utils.stop_recording(camera, video_count)
+                sleep(1)
 
                 utils.transfer_files(transfer_all=True if handled_button is 3 else False)
 
@@ -106,15 +109,17 @@ def main():
             continue
 
         # Check if recording duration met or switching storage
-        if t == recording_duration or (velocity_is_rest() and not at_rest):
+        # if t == recording_duration or (velocity_is_rest() and not at_rest):
+        if t == recording_duration:
+            print("next video")
             # TODO: make these into a function: start_recording() and stop_recording()
             video_count = utils.stop_recording(camera, video_count)
             t = utils.start_recording(camera, video_count, t)
 
-        if velocity_is_rest() and not at_rest:
-            at_rest = True
-        elif not velocity_is_rest() and at_rest:
-            at_rest = False
+        # if velocity_is_rest() and not at_rest:
+        #     at_rest = True
+        # elif not velocity_is_rest() and at_rest:
+        #     at_rest = False
 
         # Update display text (showing time, speed and temperature)
         camera.annotate_text = display_details(convert_temp(sense.get_temperature()))
