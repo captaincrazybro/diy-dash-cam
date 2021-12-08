@@ -1,9 +1,10 @@
 import os
+import subprocess
 
 from sense_hat import SenseHat
 from math import *
 import shutil
-from subprocess import call
+from subprocess import call, DEVNULL
 from time import sleep
 from gps import *
 import numpy as np
@@ -31,12 +32,22 @@ class GpsPoller(threading.Thread):
             gpsd.next()  # this will continue to loop and grab EACH set of gpsd info to clear the buffer
 
 
+class GpsEnhancer(threading.Thread):
+    def __init(self):
+        threading.Thread.__init__(self)
+
+    def run(self):
+        command = "cgps -s"
+        # fh = open("NUL", "w")
+        call([command], shell=True)#, stdout=fh, stderr=fh)
+        # fh.close()
+
 def gpsd_is_set():
     return gpsd is not None and not np.isnan(gpsd.fix.speed)
 
 
 def display_details(temperature):
-    print(gpsd if gpsd is None else gpsd.fix.speed)
+    print(f'{gpsd if gpsd is None else gpsd.fix.speed}')
     if not gpsd_is_set():
         return 'Obtaining GPS...'
 
@@ -207,8 +218,10 @@ def pop_front(array, pops):
 def convert_file(file):
     mp4_file = file.split(".")[0] + ".mp4"
 
+    fh = open("NUL", "w")
     command = "ffmpeg -framerate 25 -i \"" + file + "\" -c copy \"" + mp4_file + "\""
-    call([command], shell=True)
+    call([command], shell=True, stdout=fh, stderr=fh)
+    fh.close()
 
     os.remove(file)
 
